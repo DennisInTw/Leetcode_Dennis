@@ -7,16 +7,7 @@
                 0
                 [1,2,3,10]
                 6
-                
-     
-     Only need to notice the "not found" case, we can find :
-     
-     If target need to be inserted at nums[middle]'s right side,
-     then left == right and left > middle
-     
-     If target need to be inserted at nums[middle]'s left side,
-     then left == right and left == middle.
-     Original nums[left] need to move left
+      For [left, right) condition          
  */
 
 class Solution {
@@ -37,9 +28,6 @@ public:
             }
         }
         
-        /* if need to insert to the right side of nums[middle], return middle+1;
-           Or, return middle;
-        */
-        return (middle < left) ? (middle + 1) : middle;
+        return left;
     }
 };
