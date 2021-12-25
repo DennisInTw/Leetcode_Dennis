@@ -1,23 +1,25 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        // Brute force solution
+        // Sliding window solution
         int sum = 0;
-        int minLen = nums.size()+1;
+        int minLen = INT32_MAX;
         int len = 0;
+        int windowStart = 0, windowEnd = 0;
         
-        for (int i = 0; i < nums.size(); i++) {
-            sum = 0;
-            for (int j = i; j < nums.size(); j++) {
-                sum += nums[j];
-                
-                if (sum >= target) {
-                    len = (j - i + 1);
+        for (windowEnd = 0; windowEnd < nums.size(); windowEnd++) {
+            sum += nums[windowEnd];
+            
+            if (sum >= target) {
+                while (sum >= target) {
+                    len = (windowEnd - windowStart + 1);
                     minLen = (len < minLen) ? len : minLen;
+                    sum -= nums[windowStart];
+                    windowStart++;
                 }
             }
         }
         
-        return (minLen < nums.size()+1) ? minLen : 0;
+        return (minLen != INT32_MAX) ? minLen : 0;   
     }
 };
