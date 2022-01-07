@@ -10,10 +10,19 @@ public:
         this->val = 0;
         this->next = NULL;
         
-        if (nodeCount == -1) {
-            dummyHead = this;
-            nodeCount = 0;
-        }
+        dummyHead = this;
+        nodeCount = 0;
+    }
+    
+    /*  需要建立另一個contructor, 用以區別一開始建立的dummy head
+        如果不使用這個,而用上面的constructor
+        就算在class裡用一個static變數紀錄是不是dummy head
+        當有兩個或以上的test case時,該static變數不會被清除,這樣就會有問題
+    
+     */
+    MyLinkedList(int val, MyLinkedList* next) {
+        this->val = val;
+        this->next = next;
     }
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
@@ -34,9 +43,7 @@ public:
     
     /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
     void addAtHead(int val) {
-        MyLinkedList* newNode = new MyLinkedList();
-        newNode->val = val;
-        newNode->next = dummyHead->next;
+        MyLinkedList* newNode = new MyLinkedList(val, dummyHead->next);
         
         dummyHead->next = newNode;
         nodeCount++;
@@ -44,9 +51,7 @@ public:
     
     /** Append a node of value val to the last element of the linked list. */
     void addAtTail(int val) {
-        MyLinkedList* newNode = new MyLinkedList();
-        newNode->val = val;
-        newNode->next = NULL;
+        MyLinkedList* newNode = new MyLinkedList(val, NULL);
         
         if (dummyHead->next != NULL) {
             MyLinkedList* curPtr = dummyHead->next;
@@ -70,8 +75,7 @@ public:
         } else if (index == nodeCount) {
             addAtTail(val);
         } else if (0 < index && index < nodeCount) {
-            MyLinkedList* newNode = new MyLinkedList();
-            newNode->val = val;
+            MyLinkedList* newNode = new MyLinkedList(val, NULL);
             MyLinkedList* curPtr = dummyHead->next;
             MyLinkedList* tmpPtr = NULL;
             
