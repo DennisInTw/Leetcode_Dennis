@@ -10,22 +10,30 @@
  */
 class Solution {
 public:
-    ListNode* doReverse(ListNode* prev, ListNode* cur) {
-        ListNode* next = NULL;
+    ListNode* doReverse(ListNode* node) {
+        ListNode* newHead = NULL;
         
-        if (cur == NULL) 
-            return prev;
-        
-        next = cur->next;
-        cur->next = prev;
-        prev = cur;
-        cur = next;
-        
-        return doReverse(prev, cur);
+        if (node == NULL) {
+            return NULL;
+        } else {
+            newHead = doReverse(node->next);
+            if (newHead == NULL) {
+                return node;
+            } else {
+                node->next->next = node;
+                return newHead;
+            } 
+        }
     }
     
     ListNode* reverseList(ListNode* head) {
-        // recursive solution
-        return doReverse(NULL, head);
+        ListNode* newHead = NULL;
+        
+        if (head != NULL) {
+            newHead = doReverse(head);
+            head->next = NULL;
+        }
+        
+        return newHead;
     }
 };
