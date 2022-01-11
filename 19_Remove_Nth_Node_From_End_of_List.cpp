@@ -11,25 +11,26 @@
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        // 利用array將所有node的address儲存,然後再依照index來找到需要刪除的node
-        
+        // dummy head + two pointers
         ListNode* dummyHead = new ListNode();
-        ListNode* storePtr[31];
-        ListNode* cur;
-        int i;
-        
-        memset(storePtr, NULL, sizeof(ListNode*) * 31);
+        ListNode* fast, *slow, *tmp;
         
         dummyHead->next = head;
-        cur = dummyHead;
-        for (i = 0; cur != NULL; i++) {
-            storePtr[i] = cur;
-            cur = cur->next;
+        fast = slow = dummyHead;
+        
+        for (int i = 0; i <= n; i++) {
+            fast = fast->next;
         }
         
-        // i-1 is the number of nodes in the list
-        storePtr[i-1-n]->next = storePtr[i-1-n+2];
-        delete storePtr[i-1-n+1];
+        while (fast != NULL) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        
+        tmp = slow->next;
+        slow->next = tmp->next;
+        
+        delete tmp;
         
         head = dummyHead->next;
         
