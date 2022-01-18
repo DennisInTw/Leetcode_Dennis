@@ -13,12 +13,7 @@ public:
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {
                 int sum = nums1[i] + nums2[j];
-                if (map_sum1_2.count(sum) == 0) {
-                    map_sum1_2.insert(make_pair(sum, 1));
-                } else {
-                    map_sum1_2[sum]++;
-                }
-                
+                map_sum1_2[sum]++;
             }
         }
         
@@ -26,12 +21,7 @@ public:
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {
                 int sum = nums3[i] + nums4[j];
-                if (map_sum3_4.count(sum) == 0) {
-                    map_sum3_4.insert(make_pair(sum, 1));
-                } else {
-                    map_sum3_4[sum]++;
-                }
-                
+                map_sum3_4[sum]++;
             }
         }
 
